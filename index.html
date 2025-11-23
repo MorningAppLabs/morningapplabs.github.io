@@ -1,15 +1,6 @@
 <!--
   MorningAppLabs - GitHub Pages
   Single-file static site (index.html)
-
-  How to deploy on GitHub Pages:
-  1. Create a new GitHub repository named `morningapplabs.github.io` (or any repo and enable Pages from main branch / gh-pages branch).
-  2. Add this index.html file at the repo root and push.
-  3. Wait a few minutes — your site will be available at: https://<your-username>.github.io/ or https://morningapplabs.github.io/
-
-  Notes:
-  - This file is intentionally self-contained: styles, SVG logo, and simple JS are inline.
-  - Replace placeholders (links, email) with your real URLs.
 -->
 
 <!doctype html>
@@ -17,20 +8,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MorningAppLabs — Building simple apps for real-life problems</title>
+  <title>MorningAppLabs — Building simple apps and web-tools for real-life problems</title>
   <meta name="description" content="MorningAppLabs — React Native apps, WordPress plugins and web tools that solve everyday problems." />
   <meta name="theme-color" content="#FBCC0" />
 
-  <!-- Brand colors: #F4B400 (yellow), #FBCC00 (accent orange), #42A5F5 (blue), #37474F (dark) -->
   <style>
     :root{
-      --yellow:#F4B400; /* primary */
-      --orange:#FB8C00; /* accent */
-      --blue:#42A5F5;   /* highlight */
-      --dark:#37474F;   /* text */
+      --yellow:#F4B400;
+      --orange:#FB8C00;
+      --blue:#42A5F5;
+      --dark:#37474F;
       --bg:#fff9f2;
       --card:#fff;
-      --muted: #7a6f6f;
+      --muted:#7a6f6f;
       --radius:16px;
       --maxw:1100px;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -45,73 +35,105 @@
 
     /* logo */
     .logo{display:flex;align-items:center;gap:14px}
-    .logo .mark{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--yellow),var(--orange));display:grid;place-items:center;box-shadow:0 6px 18px rgba(53,34,10,0.08)}
+    .logo .mark{
+      width:72px;height:72px;border-radius:14px;
+      background:linear-gradient(135deg,var(--yellow),var(--orange));
+      display:grid;place-items:center;
+      box-shadow:0 6px 18px rgba(53,34,10,0.08)
+    }
     .logo svg{width:42px;height:42px}
-    .brand{line-height:1}
-    .brand h1{margin:0;font-size:28px;letter-spacing:-0.5px}
+    .brand h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-0.5px}
     .brand p{margin:2px 0 0;font-size:13px;color:var(--muted)}
 
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .pill{
+      background:#fff;border-radius:999px;padding:8px 12px;
+      border:1px solid rgba(55,71,79,0.06);
+      display:inline-flex;align-items:center;gap:8px
+    }
+
     /* hero */
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:28px;align-items:center}
-    .intro{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:0 8px 30px rgba(20,20,20,0.05)}
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;
+      gap:28px;margin-top:28px;align-items:center
+    }
+    .intro{
+      background:var(--card);padding:28px;border-radius:var(--radius);
+      box-shadow:0 8px 30px rgba(20,20,20,0.05)
+    }
     .intro h2{margin:0 0 8px;font-size:22px}
     .intro p{margin:0;color:var(--muted);line-height:1.6}
 
-    .supportCard{background:linear-gradient(180deg,var(--yellow),#ffd27a);padding:20px;border-radius:12px;text-align:center}
-    .supportCard .big{font-weight:700;font-size:20px;color:var(--dark);margin-bottom:8px}
-    .supportCard p{margin:0 0 14px;color:var(--dark)}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;background:var(--orange);color:#fff;font-weight:600;box-shadow:0 6px 18px rgba(216,107,14,0.18)}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 18px;border-radius:12px;background:var(--orange);
+      color:#fff;font-weight:600;box-shadow:0 6px 18px rgba(216,107,14,0.18)
+    }
 
-    /* projects */
-    .projects{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(10,10,10,0.04)}
+    .supportCard{
+      background:linear-gradient(180deg,var(--yellow),#ffd27a);
+      padding:20px;border-radius:12px;text-align:center
+    }
+    .supportCard .big{font-weight:700;font-size:20px;margin-bottom:8px}
+    .supportCard p{margin:0 0 14px}
+
+    .projects{margin-top:28px;
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .card{
+      background:var(--card);padding:18px;border-radius:12px;
+      box-shadow:0 8px 20px rgba(10,10,10,0.04)
+    }
     .card h3{margin:0 0 8px;font-size:16px}
     .card p{margin:0;color:var(--muted);font-size:14px}
 
-    footer{margin-top:36px;padding:22px;border-radius:12px;text-align:center;color:var(--muted)}
+    footer{
+      margin-top:36px;padding:22px;border-radius:12px;
+      text-align:center;color:var(--muted)
+    }
 
-    /* social row */
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .pill{background:#fff;border-radius:999px;padding:8px 12px;border:1px solid rgba(55,71,79,0.06);display:inline-flex;align-items:center;gap:8px}
-
-    /* responsive */
-    @media (max-width:880px){
+    @media(max-width:880px){
       .hero{grid-template-columns:1fr}
-      header{justify-content:center;text-align:center}
+      header{flex-direction:column;text-align:center}
       .logo{justify-content:center}
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
+
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <div class="mark" aria-hidden="true">
-          <!-- inline svg coffee mark -->
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <path d="M7 10h8v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V10z" fill="#fff" opacity="0.95"/>
-            <path d="M15 7s1.5-.5 1.5-2S15 3 15 3" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <div class="mark">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 10h8v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V10z" fill="#fff" opacity=".95"/>
+            <path d="M15 7s1.5-.5 1.5-2S15 3 15 3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="brand">
           <h1>MorningAppLabs</h1>
-          <p>Building simple apps for real-life problems</p>
+          <p>Building simple apps and web-tools for real-life problems</p>
         </div>
       </div>
 
       <div style="margin-left:auto" class="row">
-        <a class="pill" href="https://github.com/morningapplabs" target="_blank" rel="noopener">GitHub</a>
-        <a class="pill" href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener">Support me</a>
-        <a class="pill" href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+        <a class="pill" href="https://github.com/MorningAppLabs" target="_blank">GitHub</a>
+        <a class="pill" href="https://x.com/MorningAppLabs" target="_blank">X</a>
+        <a class="pill" href="https://instagram.com/morningapplabs" target="_blank">Instagram</a>
+        <a class="pill" href="https://www.buymeacoffee.com/morningapplabs" target="_blank">Support Me</a>
       </div>
     </header>
 
+    <!-- HERO -->
     <main class="hero">
       <section class="intro">
         <h2>Hello — I build practical apps, plugins, and tools</h2>
+
         <p>
-          MorningAppLabs creates small, useful software that solves everyday problems — Android apps (React Native), WordPress plugins, and lightweight web tools.
-          <br /><br />Every project focuses on simplicity, performance, and real user need. Browse projects below, or support the work so I can build more.
+          MorningAppLabs creates simple, useful software that solves real everyday problems — Android apps (React Native), WordPress plugins, and lightweight web-tools.
+          <br><br>
+          Every project focuses on simplicity, performance, and real user needs. Browse my projects below, or support the work so I can build more.
         </p>
 
         <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
@@ -120,84 +142,97 @@
         </div>
       </section>
 
+      <!-- Support Card -->
       <aside>
         <div class="supportCard">
           <div class="big">Support Me</div>
           <p>If you like my apps and creations, consider supporting MorningAppLabs. Your support helps me keep building simple tools that solve everyday problems.</p>
-          <div style="margin-top:12px">
-            <a class="btn" href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-left:-6px" xmlns="http://www.w3.org/2000/svg"><path d="M7 10h8v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V10z" fill="rgba(255,255,255,0.85)"/><path d="M15 7s1.5-.5 1.5-2S15 3 15 3" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Buy me a coffee
-            </a>
-          </div>
-        </div>
 
-        <div style="height:18px"></div>
-
-        <div class="card" style="text-align:center">
-          <strong style="display:block;margin-bottom:8px">First goal</strong>
-          <p style="margin:0;color:var(--muted);">20 coffees — Launch 3 new utility apps</p>
+          <a class="btn" href="https://www.buymeacoffee.com/morningapplabs" target="_blank">
+            ☕ Buy me a coffee
+          </a>
         </div>
       </aside>
     </main>
 
+    <!-- PROJECTS SECTION -->
     <section id="projects" style="margin-top:28px">
-      <h2 style="margin:0 0 12px">Selected projects</h2>
+      <h2 style="margin:0 0 12px">My Projects</h2>
+
       <div class="projects">
+
+        <!-- Nourish -->
         <article class="card">
-          <h3>QuickConvert — Unit Converter</h3>
-          <p>Fast conversions for weight, length, volume and commonly used kitchen units. Offline-friendly, small size.</p>
+          <h3>Nourish — Meal Planning & Kitchen Manager</h3>
+          <p>
+            A complete meal planning companion with recipe management, grocery list automation, budget tracking, medication reminders, swipe navigation, and local data storage with backup/restore.
+          </p>
         </article>
 
+        <!-- DueSense -->
         <article class="card">
-          <h3>WP Fixer — WordPress small fixes</h3>
-          <p>A collection of lightweight plugin fixes for common WP issues and small feature add-ons.</p>
+          <h3>DueSense — Credit Card Management</h3>
+          <p>
+            A personal finance tool for managing credit cards, tracking all transactions, cashback calculations, reminders, EMIs, spending analytics, currency support, and secure local storage.
+          </p>
         </article>
 
+        <!-- INS Battery Service Manager -->
         <article class="card">
-          <h3>DailyTasks — Minimal task tracker</h3>
-          <p>A focused, no-friction task timer and streak tracker designed for quick daily use.</p>
+          <h3>INS Battery Service Manager — WordPress Plugin</h3>
+          <p>
+            A complete workflow system for battery repair businesses with customer portals, technician dashboards, automation, PDF reports, WhatsApp updates, analytics, backups, and more.
+          </p>
         </article>
 
+        <!-- Maintenance Whitelist -->
         <article class="card">
-          <h3>Mini Automate — Tiny web automations</h3>
-          <p>Small scripts & tools to automate repetitive online tasks and improve productivity.</p>
+          <h3>Maintenance Whitelist — WordPress Plugin</h3>
+          <p>
+            A powerful maintenance-mode plugin supporting whitelist rules, scheduling, custom layouts, animations, SEO-friendly behavior, and beautiful responsive design.
+          </p>
         </article>
+
       </div>
     </section>
 
+    <!-- SERVICES -->
     <section style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
+
       <div class="card">
         <h3>About MorningAppLabs</h3>
-        <p>MorningAppLabs builds simple, focused tools and apps that address everyday pain points. Projects emphasize speed, clarity and long-term maintainability.</p>
+        <p>
+          MorningAppLabs builds simple, focused tools and apps that address everyday pain points.  
+          I prioritize speed, clarity, privacy, and long-term maintainability.
+        </p>
       </div>
 
       <div class="card">
         <h3>Services & Extras</h3>
-        <p style="margin-bottom:8px">Micro-services available on Buy Me a Coffee</p>
+        <p>Available through Buy Me a Coffee</p>
         <ul style="margin:0;padding-left:18px;color:var(--muted)">
-          <li>Fix a React Native bug — ₹399</li>
-          <li>WordPress plugin fix — ₹499</li>
-          <li>Small utility app — ₹799</li>
+          <li>React Native app debugging</li>
+          <li>WordPress plugin fixes</li>
+          <li>Feature enhancements</li>
+          <li>Custom utility app development</li>
+          <li>Small automation tools</li>
         </ul>
       </div>
+
     </section>
 
+    <!-- FOOTER -->
     <footer>
-      <div style="margin-bottom:8px">Made with ☕ — MorningAppLabs</div>
-      <div style="font-size:13px">Links: <a href="https://github.com/morningapplabs" target="_blank">GitHub</a> · <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank">Support</a> · <a href="https://youtube.com" target="_blank">YouTube</a></div>
-      <div style="margin-top:10px;font-size:12px;color:var(--muted)">Thank You.</div>
+      <div style="margin-bottom:8px">Developed with ❤️ — MorningAppLabs</div>
+      <div style="font-size:13px">
+        Links:
+        <a href="https://github.com/MorningAppLabs">GitHub</a> ·
+        <a href="https://x.com/MorningAppLabs">X</a> ·
+        <a href="https://instagram.com/morningapplabs">Instagram</a> ·
+        <a href="https://www.buymeacoffee.com/morningapplabs">Support</a>
+      </div>
     </footer>
-  </div>
 
-  <!-- small analytics-free view counter placeholder (optional) -->
-  <script>
-    // Optional: replace with your analytics or GitHub Pages badge
-    (function(){
-      try{
-        // show nothing — placeholder for future scripts
-      }catch(e){console.warn(e)}
-    })()
-  </script>
+  </div>
 </body>
 </html>
