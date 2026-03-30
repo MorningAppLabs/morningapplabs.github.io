@@ -1,238 +1,889 @@
-<!--
-  MorningAppLabs - GitHub Pages
-  Single-file static site (index.html)
--->
-
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MorningAppLabs — Building simple apps and web-tools for real-life problems</title>
-  <meta name="description" content="MorningAppLabs — React Native apps, WordPress plugins and web tools that solve everyday problems." />
-  <meta name="theme-color" content="#FBCC0" />
+  <title>MorningAppLabs — Building apps that solve real problems</title>
+  <meta name="description" content="MorningAppLabs builds privacy-first Android apps, Windows utilities, and web tools that solve everyday problems. Download the latest releases." />
+  <meta name="theme-color" content="#F59E0B" />
+  <meta property="og:title" content="MorningAppLabs" />
+  <meta property="og:description" content="Building apps that solve real problems — Android, Windows &amp; Web." />
+  <meta property="og:url" content="https://morningapplabs.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://morningapplabs.github.io/mal-logo.png" />
+  <link rel="icon" type="image/png" href="mal-mark.png" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <style>
-    :root{
-      --yellow:#F4B400;
-      --orange:#FB8C00;
-      --blue:#42A5F5;
-      --dark:#37474F;
-      --bg:#fff9f2;
-      --card:#fff;
-      --muted:#7a6f6f;
-      --radius:16px;
-      --maxw:1100px;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    /* RESET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber: #F59E0B;
+      --amber-lt: #FCD34D;
+      --orange: #F97316;
+      --dark: #0C0A09;
+      --dark-2: #1C1917;
+      --dark-3: #292524;
+      --dark-4: #44403C;
+      --mid: #78716C;
+      --light: #F5F5F4;
+      --white: #FFFFFF;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,.07);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,.14);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:var(--dark);}
-    a{color:var(--orange);text-decoration:none}
+    html { scroll-behavior: smooth; }
+    body { background: var(--light); color: var(--dark); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
 
-    .wrap{max-width:var(--maxw);margin:40px auto;padding:28px}
-    header{display:flex;align-items:center;gap:20px}
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--dark-2); }
+    ::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 3px; }
 
-    /* logo */
-    .logo{display:flex;align-items:center;gap:14px}
-    .logo .mark{
-      width:72px;height:72px;border-radius:14px;
-      background:linear-gradient(135deg,var(--yellow),var(--orange));
-      display:grid;place-items:center;
-      box-shadow:0 6px 18px rgba(53,34,10,0.08)
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(12,10,9,.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: transform .3s ease;
     }
-    .logo svg{width:42px;height:42px}
-    .brand h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-0.5px}
-    .brand p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-mark {
+      width: 36px; height: 36px; border-radius: 9px;
+      overflow: hidden; flex-shrink: 0; display: block;
+    }
+    .nav-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .nav-name { font-weight: 700; font-size: 16px; color: #fff; letter-spacing: -.3px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a { color: rgba(255,255,255,.65); font-size: 14px; font-weight: 500; padding: 8px 13px; border-radius: 8px; transition: all .2s; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--amber), var(--orange)) !important;
+      color: #fff !important; font-weight: 600 !important;
+      box-shadow: 0 4px 16px rgba(245,158,11,.35); border-radius: 9px !important;
+    }
+    .nav-cta:hover { opacity: .9; box-shadow: 0 6px 24px rgba(245,158,11,.45) !important; }
+    .hamburger { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; border-radius: 8px; }
+    .hamburger:hover { background: rgba(255,255,255,.08); }
 
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .pill{
-      background:#fff;border-radius:999px;padding:8px 12px;
-      border:1px solid rgba(55,71,79,0.06);
-      display:inline-flex;align-items:center;gap:8px
+    /* HERO */
+    .hero {
+      min-height: 100vh; background: var(--dark);
+      display: flex; align-items: center;
+      padding: 120px 24px 80px; position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 75% 55% at 15% 50%, rgba(245,158,11,.13) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(249,115,22,.09) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 65% 85%, rgba(139,92,246,.07) 0%, transparent 55%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.25);
+      color: var(--amber-lt); font-size: 13px; font-weight: 500;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+    }
+    .badge-dot { width: 7px; height: 7px; background: var(--amber); border-radius: 50%; animation: blink 2s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.6)} }
+
+    .hero h1 {
+      font-size: clamp(38px, 5.5vw, 64px); font-weight: 900; color: #fff;
+      line-height: 1.05; letter-spacing: -2.5px; margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 1.8vw, 19px); color: rgba(255,255,255,.5);
+      line-height: 1.75; margin-bottom: 36px; max-width: 500px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+
+    .btn-prime {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      color: #fff; font-weight: 700; font-size: 15px;
+      padding: 14px 26px; border-radius: 13px;
+      box-shadow: 0 8px 28px rgba(245,158,11,.32); transition: all .3s;
+    }
+    .btn-prime:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(245,158,11,.42); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
+      color: rgba(255,255,255,.8); font-weight: 500; font-size: 15px;
+      padding: 14px 26px; border-radius: 13px; transition: all .3s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+    .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+    .stat-num {
+      font-size: 30px; font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-lbl { font-size: 12px; color: rgba(255,255,255,.38); margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* hero visual cards */
+    .hero-visual { position: relative; height: 420px; }
+    .hv-card {
+      position: absolute;
+      background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-radius: 18px; padding: 20px;
+    }
+    .hv1 { inset: 0 0 200px 0; }
+    .hv2 { top: 60px; left: 30px; right: -24px; height: 170px; background: rgba(245,158,11,.05); }
+    .hv3 { bottom: 0; left: 16px; right: 16px; height: 155px; background: rgba(249,115,22,.04); }
+    .hv-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 12px;
+    }
+    .hv-badge-a { background: rgba(61,220,132,.15); color: #52e59a; }
+    .hv-badge-w { background: rgba(0,120,212,.15); color: #5aaee8; }
+    .hv-badge-web { background: rgba(139,92,246,.15); color: #b39bff; }
+    .hv-title { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .hv-sub { color: rgba(255,255,255,.4); font-size: 13px; line-height: 1.5; }
+    .hv-dl {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      background: rgba(245,158,11,.15); color: var(--amber-lt);
+      font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px;
     }
 
-    /* hero */
-    .hero{
-      display:grid;grid-template-columns:1fr 360px;
-      gap:28px;margin-top:28px;align-items:center
-    }
-    .intro{
-      background:var(--card);padding:28px;border-radius:var(--radius);
-      box-shadow:0 8px 30px rgba(20,20,20,0.05)
-    }
-    .intro h2{margin:0 0 8px;font-size:22px}
-    .intro p{margin:0;color:var(--muted);line-height:1.6}
+    /* SECTION WRAPPER */
+    .section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+    .section-sm { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+    .divider { width: 44px; height: 4px; background: linear-gradient(90deg, var(--amber), var(--orange)); border-radius: 2px; margin-bottom: 20px; }
+    .section-h { font-size: clamp(26px, 3vw, 36px); font-weight: 900; letter-spacing: -1.2px; margin-bottom: 8px; }
+    .section-p { color: var(--mid); font-size: 16px; margin-bottom: 36px; max-width: 560px; }
 
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:12px 18px;border-radius:12px;background:var(--orange);
-      color:#fff;font-weight:600;box-shadow:0 6px 18px rgba(216,107,14,0.18)
+    /* FILTER TABS */
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .f-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--white); border: 1px solid rgba(0,0,0,.09);
+      color: var(--mid); font-size: 14px; font-weight: 500;
+      padding: 8px 16px; border-radius: 999px; cursor: pointer; transition: all .2s;
+    }
+    .f-btn:hover, .f-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .f-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* PROJECTS GRID */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,.07); padding: 24px;
+      box-shadow: var(--shadow); transition: all .3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; position: relative; overflow: hidden;
+    }
+    .card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--line-a), var(--line-b));
+      opacity: 0; transition: opacity .3s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(0,0,0,.1); }
+    .card:hover::after { opacity: 1; }
+
+    .card-android { --line-a: #3DDC84; --line-b: #1ea763; }
+    .card-windows { --line-a: #0078D4; --line-b: #005fa3; }
+    .card-web     { --line-a: #8B5CF6; --line-b: #6d30de; }
+    .card-wp      { --line-a: #21759B; --line-b: #185f7e; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .card-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--light); display: grid; place-items: center; font-size: 26px; flex-shrink: 0; }
+    .card-info { flex: 1; min-width: 0; }
+
+    .platform-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      border-radius: 999px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px;
+    }
+    .pb-android { background: rgba(61,220,132,.12); color: #1ea763; }
+    .pb-windows { background: rgba(0,120,212,.12); color: #0078D4; }
+    .pb-web     { background: rgba(139,92,246,.12); color: #7C3AED; }
+    .pb-wp      { background: rgba(33,117,155,.12); color: #21759B; }
+
+    .card-name { font-size: 18px; font-weight: 800; letter-spacing: -.5px; line-height: 1.2; }
+
+    .ver-badge {
+      display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+      background: rgba(0,0,0,.05); color: var(--mid);
+      font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 999px;
+    }
+    .ver-new { background: rgba(245,158,11,.12); color: #B45309; }
+    .ver-live { background: rgba(139,92,246,.12); color: #7C3AED; }
+
+    .card-desc { font-size: 14px; color: var(--mid); line-height: 1.75; margin-bottom: 16px; flex: 1; }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .tag { background: var(--light); color: var(--dark-4); font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 6px; }
+
+    .card-actions { display: flex; gap: 8px; }
+    .cta-main {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      color: #fff; font-size: 14px; font-weight: 700;
+      padding: 11px 16px; border-radius: 10px; flex: 1; transition: all .2s;
+    }
+    .cta-android { background: #1ea763; }
+    .cta-android:hover { background: #18865a; transform: translateY(-1px); }
+    .cta-windows { background: #0078D4; }
+    .cta-windows:hover { background: #0062ad; transform: translateY(-1px); }
+    .cta-web { background: #7C3AED; }
+    .cta-web:hover { background: #6d30de; transform: translateY(-1px); }
+    .cta-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--light); color: var(--mid); font-size: 14px; font-weight: 500;
+      padding: 11px 14px; border-radius: 10px; transition: all .2s;
+    }
+    .cta-ghost:hover { background: rgba(0,0,0,.09); color: var(--dark); }
+    .cta-soon {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      background: rgba(245,158,11,.07); border: 1px dashed rgba(245,158,11,.35);
+      color: #92400E; font-size: 13px; font-weight: 500;
+      padding: 10px 14px; border-radius: 10px; width: 100%; transition: all .2s;
+    }
+    .cta-soon:hover { background: rgba(245,158,11,.12); }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .acard {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,.07); padding: 32px; box-shadow: var(--shadow);
+    }
+    .acard.dark { background: var(--dark); border-color: rgba(255,255,255,.07); }
+    .acard-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      display: grid; place-items: center; font-size: 22px; margin-bottom: 20px;
+    }
+    .acard-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .acard-dark-title { color: #fff; }
+    .acard-body { font-size: 15px; color: var(--mid); line-height: 1.75; }
+    .acard-dark-body { color: rgba(255,255,255,.48); }
+    .services { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .svc {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: rgba(255,255,255,.65);
+    }
+    .svc::before { content: '→'; color: var(--amber); font-size: 13px; }
+
+    /* SOCIAL */
+    .socials { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+    .soc {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--light); border: 1px solid rgba(0,0,0,.08);
+      font-size: 13px; font-weight: 500; color: var(--dark-4);
+      padding: 7px 13px; border-radius: 999px; transition: all .2s;
+    }
+    .soc:hover { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    /* SUPPORT BANNER */
+    .banner {
+      background: var(--dark-2); border-radius: 24px; padding: 64px 32px;
+      text-align: center; position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .banner-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(245,158,11,.16), transparent 65%);
+    }
+    .banner-content { position: relative; z-index: 1; }
+    .banner-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: #fff; letter-spacing: -1.2px; margin-bottom: 14px; }
+    .banner-sub { font-size: 17px; color: rgba(255,255,255,.48); max-width: 500px; margin: 0 auto 32px; line-height: 1.75; }
+    .coffee-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      color: #fff; font-size: 16px; font-weight: 700;
+      padding: 17px 34px; border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(245,158,11,.35); transition: all .3s;
+    }
+    .coffee-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(245,158,11,.45); }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,.45); padding: 48px 24px; }
+    .foot-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .foot-logo { display: flex; align-items: center; gap: 10px; }
+    .foot-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      overflow: hidden; flex-shrink: 0; display: block;
+    }
+    .foot-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .foot-name { color: #fff; font-weight: 700; font-size: 15px; }
+    .foot-tag { font-size: 13px; margin-top: 4px; }
+    .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .foot-links a { font-size: 14px; color: rgba(255,255,255,.38); transition: color .2s; }
+    .foot-links a:hover { color: #fff; }
+    .foot-copy { font-size: 13px; }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+    .card:nth-child(1){transition-delay:.04s} .card:nth-child(2){transition-delay:.08s}
+    .card:nth-child(3){transition-delay:.12s} .card:nth-child(4){transition-delay:.16s}
+    .card:nth-child(5){transition-delay:.20s} .card:nth-child(6){transition-delay:.24s}
+    .card:nth-child(7){transition-delay:.28s}
+
+    /* HERO ENTRANCE */
+    @keyframes heroIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-badge   { animation: heroIn .65s cubic-bezier(.22,1,.36,1) both; animation-delay: .1s; }
+    .hero h1      { animation: heroIn .65s cubic-bezier(.22,1,.36,1) both; animation-delay: .22s; }
+    .hero-sub     { animation: heroIn .65s cubic-bezier(.22,1,.36,1) both; animation-delay: .38s; }
+    .hero-actions { animation: heroIn .65s cubic-bezier(.22,1,.36,1) both; animation-delay: .52s; }
+    .hero-stats   { animation: heroIn .65s cubic-bezier(.22,1,.36,1) both; animation-delay: .66s; }
+
+    /* ACCESSIBILITY — respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
-    .supportCard{
-      background:linear-gradient(180deg,var(--yellow),#ffd27a);
-      padding:20px;border-radius:12px;text-align:center
-    }
-    .supportCard .big{font-weight:700;font-size:20px;margin-bottom:8px}
-    .supportCard p{margin:0 0 14px}
+    /* TOUCH — prevent 300 ms tap delay on mobile */
+    button, a { touch-action: manipulation; }
 
-    .projects{margin-top:28px;
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .card{
-      background:var(--card);padding:18px;border-radius:12px;
-      box-shadow:0 8px 20px rgba(10,10,10,0.04)
+    /* Buy-me-a-coffee inline link in Services card */
+    .bmac-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.28);
+      color: #FCD34D; font-size: 14px; font-weight: 600;
+      padding: 11px 18px; border-radius: 10px; transition: background .2s;
     }
-    .card h3{margin:0 0 8px;font-size:16px}
-    .card p{margin:0;color:var(--muted);font-size:14px}
+    .bmac-link:hover { background: rgba(245,158,11,.24); }
 
-    footer{
-      margin-top:36px;padding:22px;border-radius:12px;
-      text-align:center;color:var(--muted)
+    /* RESPONSIVE */
+    @media (max-width: 360px) {
+      .card-actions { flex-wrap: wrap; }
+      .cta-main { flex: none; width: 100%; }
+      .cta-ghost { width: 100%; justify-content: center; }
     }
-
-    @media(max-width:880px){
-      .hero{grid-template-columns:1fr}
-      header{flex-direction:column;text-align:center}
-      .logo{justify-content:center}
+    @media(max-width:1024px){
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    @media(max-width:768px){
+      .hero { padding: 96px 20px 60px; }
+      .hero-stats { gap: 22px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(12,10,9,.97); padding: 16px; gap: 2px; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: block; }
+      .grid { grid-template-columns: 1fr; }
+      .banner { padding: 44px 24px; }
+      .section { padding: 60px 20px; }
+      .section-sm { padding: 0 20px 60px; }
+    }
+    @media(max-width:480px){
+      .hero h1 { letter-spacing: -1.8px; }
+      .foot-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
 
-    <!-- HEADER -->
-    <header>
-      <div class="logo">
-        <div class="mark">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M7 10h8v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V10z" fill="#fff" opacity=".95"/>
-            <path d="M15 7s1.5-.5 1.5-2S15 3 15 3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
+  <!-- ╔══ NAV ═══════════════════════════════════════════════════════════════╗ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Home">
+        <div class="nav-mark"><img src="mal-mark.png" alt="MorningAppLabs" loading="eager" /></div>
+        <span class="nav-name">MorningAppLabs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="mailto:morningapplabs@gmail.com">Contact</a>
+        <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener noreferrer" class="nav-cta">☕ Support</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 6h16M3 12h16M3 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ╔══ HERO ══════════════════════════════════════════════════════════════╗ -->
+  <section class="hero" id="home">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Actively building — new releases shipping
         </div>
-        <div class="brand">
-          <h1>MorningAppLabs</h1>
-          <p>Building simple apps and web-tools for real-life problems</p>
+        <h1>Building apps that<br><em>solve real problems.</em></h1>
+        <p class="hero-sub">Privacy-first Android apps, Windows utilities, and web tools — each one focused on doing one thing really well, with zero bloat and all your data staying on your device.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-prime">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Browse &amp; Download
+          </a>
+          <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener noreferrer" class="btn-outline">☕ Buy me a coffee</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">7</div><div class="stat-lbl">Projects</div></div>
+          <div><div class="stat-num">5</div><div class="stat-lbl">Live Releases</div></div>
+          <div><div class="stat-num">3</div><div class="stat-lbl">Platforms</div></div>
+          <div><div class="stat-num">100%</div><div class="stat-lbl">Privacy First</div></div>
         </div>
       </div>
 
-      <div style="margin-left:auto" class="row">
-        <a class="pill" href="https://github.com/MorningAppLabs" target="_blank">GitHub</a>
-        <a class="pill" href="https://x.com/MorningAppLabs" target="_blank">X</a>
-        <a class="pill" href="https://instagram.com/morningapplabs" target="_blank">Instagram</a>
-        <a class="pill" href="https://www.buymeacoffee.com/morningapplabs" target="_blank">Support Me</a>
-      </div>
-    </header>
-
-    <!-- HERO -->
-    <main class="hero">
-      <section class="intro">
-        <h2>Hello — I build practical apps, plugins, and tools</h2>
-
-        <p>
-          MorningAppLabs creates simple, useful software that solves real everyday problems — Android apps (React Native), WordPress plugins, and lightweight web-tools.
-          <br><br>
-          Every project focuses on simplicity, performance, and real user needs. Browse my projects below, or support the work so I can build more.
-        </p>
-
-        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn" href="#projects">See projects</a>
-          <a class="pill" href="mailto:morningapplabs@gmail.com">Contact</a>
+      <!-- decorative preview cards -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hv-card hv1">
+          <div class="hv-badge hv-badge-a">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-5.03-2.914-5.03 2.914V8.659l5.03-2.914 5.03 2.914v6.682z M11.99 2C6.468 2 2 6.478 2 12c0 5.523 4.468 10 9.99 10C17.516 22 22 17.523 22 12c0-5.522-4.484-10-10.01-10z"/></svg>
+            Android App — v1.0.0
+          </div>
+          <div class="hv-title">DueSense</div>
+          <div class="hv-sub">Smart Credit Card Manager — track spending, cashback &amp; due dates</div>
+          <div class="hv-dl">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download APK
+          </div>
         </div>
-      </section>
+        <div class="hv-card hv2">
+          <div class="hv-badge hv-badge-w">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+            Windows — v1.0.0
+          </div>
+          <div class="hv-title">GlanceSearch</div>
+          <div class="hv-sub">System-wide screen OCR &amp; instant search — works offline</div>
+        </div>
+        <div class="hv-card hv3">
+          <div class="hv-badge hv-badge-web">
+            <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20"/></svg>
+            Web Tool — Live
+          </div>
+          <div class="hv-title">FormFocus</div>
+          <div class="hv-sub">Privacy-first image toolkit for government forms</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Support Card -->
-      <aside>
-        <div class="supportCard">
-          <div class="big">Support Me</div>
-          <p>If you like my apps and creations, consider supporting MorningAppLabs. Your support helps me keep building simple tools that solve everyday problems.</p>
+  <!-- ╔══ PROJECTS ══════════════════════════════════════════════════════════╗ -->
+  <div id="projects" style="background:#F5F5F4">
+    <div class="section">
+      <div class="divider"></div>
+      <h2 class="section-h">All Projects</h2>
+      <p class="section-p">Every app is built to be fast, simple, and completely offline-first. Your data never leaves your device.</p>
 
-          <a class="btn" href="https://www.buymeacoffee.com/morningapplabs" target="_blank">
-            ☕ Buy me a coffee
+      <div class="filters">
+        <button class="f-btn active" data-filter="all">All (7)</button>
+        <button class="f-btn" data-filter="android"><span class="f-dot" style="background:#3DDC84"></span>Android (3)</button>
+        <button class="f-btn" data-filter="windows"><span class="f-dot" style="background:#0078D4"></span>Windows (2)</button>
+        <button class="f-btn" data-filter="web"><span class="f-dot" style="background:#8B5CF6"></span>Web Tool (1)</button>
+        <button class="f-btn" data-filter="wp"><span class="f-dot" style="background:#21759B"></span>WordPress (1)</button>
+      </div>
+
+      <div class="grid">
+
+        <!-- ── DueSense ───────────────────────────────────────────────── -->
+        <article class="card card-android fade-up" data-category="android">
+          <div class="card-top">
+            <div class="card-icon">💳</div>
+            <div class="card-info">
+              <span class="platform-badge pb-android">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-5.03-2.914-5.03 2.914V8.659l5.03-2.914 5.03 2.914v6.682z M11.99 2C6.468 2 2 6.478 2 12c0 5.523 4.468 10 9.99 10C17.516 22 22 17.523 22 12c0-5.522-4.484-10-10.01-10z"/></svg>
+                Android
+              </span>
+              <div class="card-name">DueSense</div>
+            </div>
+            <span class="ver-badge ver-new">v1.0.0</span>
+          </div>
+          <p class="card-desc">Smart Credit Card Manager — take control of every rupee. Track spending across multiple cards, earn cashback insights, manage EMIs and subscriptions, get due-date alerts, and export PDF reports. 100% offline with biometric lock.</p>
+          <div class="card-tags">
+            <span class="tag">💳 Multi-card</span>
+            <span class="tag">💸 Cashback engine</span>
+            <span class="tag">📊 PDF reports</span>
+            <span class="tag">🔁 Subscriptions</span>
+            <span class="tag">🔒 Biometric</span>
+            <span class="tag">35+ currencies</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-android" href="https://github.com/MorningAppLabs/DueSense/releases/download/v1.0.0/DueSense-v1.0.0.apk">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download APK
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/DueSense" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Nourish ────────────────────────────────────────────────── -->
+        <article class="card card-android fade-up" data-category="android">
+          <div class="card-top">
+            <div class="card-icon">🥗</div>
+            <div class="card-info">
+              <span class="platform-badge pb-android">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-5.03-2.914-5.03 2.914V8.659l5.03-2.914 5.03 2.914v6.682z M11.99 2C6.468 2 2 6.478 2 12c0 5.523 4.468 10 9.99 10C17.516 22 22 17.523 22 12c0-5.522-4.484-10-10.01-10z"/></svg>
+                Android
+              </span>
+              <div class="card-name">Nourish</div>
+            </div>
+            <span class="ver-badge ver-new">v1.2.0</span>
+          </div>
+          <p class="card-desc">All-in-one meal planning companion — create and organize recipes, plan meals across breakfast/lunch/dinner sessions, auto-generate smart shopping lists, track kitchen budgets with visual charts, and set medication reminders. Local-first with dark mode.</p>
+          <div class="card-tags">
+            <span class="tag">🍳 Recipe manager</span>
+            <span class="tag">🛒 Auto shopping lists</span>
+            <span class="tag">💰 Budget charts</span>
+            <span class="tag">💊 Med reminders</span>
+            <span class="tag">🌙 Dark mode</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-android" href="https://github.com/MorningAppLabs/nourish/releases/download/v1.2.0/nourish-v1.2.0.apk">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download APK
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/nourish" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── LifeLog ────────────────────────────────────────────────── -->
+        <article class="card card-android fade-up" data-category="android">
+          <div class="card-top">
+            <div class="card-icon">📔</div>
+            <div class="card-info">
+              <span class="platform-badge pb-android">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-5.03-2.914-5.03 2.914V8.659l5.03-2.914 5.03 2.914v6.682z M11.99 2C6.468 2 2 6.478 2 12c0 5.523 4.468 10 9.99 10C17.516 22 22 17.523 22 12c0-5.522-4.484-10-10.01-10z"/></svg>
+                Android
+              </span>
+              <div class="card-name">LifeLog</div>
+            </div>
+            <span class="ver-badge ver-new">v1.1.0</span>
+          </div>
+          <p class="card-desc">Your personal life analytics companion — log daily activities, track moods, and write letters to your future self with scheduled delivery. Beautiful charts, personalized AI-written insights in reports, biometric lock, and Google Drive backup.</p>
+          <div class="card-tags">
+            <span class="tag">📝 Daily logging</span>
+            <span class="tag">😊 Mood tracking</span>
+            <span class="tag">💌 Future letters</span>
+            <span class="tag">📊 Smart reports</span>
+            <span class="tag">☁️ Drive backup</span>
+            <span class="tag">🔒 Biometric</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-android" href="https://github.com/MorningAppLabs/LifeLog/releases/download/v1.1.0/LifeLog.v1.1.0.apk">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download APK
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/LifeLog" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── GlanceSearch ───────────────────────────────────────────── -->
+        <article class="card card-windows fade-up" data-category="windows">
+          <div class="card-top">
+            <div class="card-icon">🔍</div>
+            <div class="card-info">
+              <span class="platform-badge pb-windows">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+                Windows
+              </span>
+              <div class="card-name">GlanceSearch</div>
+            </div>
+            <span class="ver-badge ver-new">v1.0.0</span>
+          </div>
+          <p class="card-desc">Blazing-fast system-wide screen capture &amp; OCR utility for Windows. Press Ctrl+Shift+G anywhere, select any region — instantly extract text, search the web, translate, open detected links, or copy. All OCR runs offline using Windows' built-in engine.</p>
+          <div class="card-tags">
+            <span class="tag">⚡ Global hotkey</span>
+            <span class="tag">🔤 Offline OCR</span>
+            <span class="tag">🌐 Web search</span>
+            <span class="tag">🌍 Translation</span>
+            <span class="tag">📜 History</span>
+            <span class="tag">🔒 Privacy-first</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-windows" href="https://github.com/MorningAppLabs/GlanceSearch/releases/download/v1.0.0/GlanceSearchSetup-1.0.0.exe">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download .exe
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/GlanceSearch" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── LapBook ────────────────────────────────────────────────── -->
+        <article class="card card-windows fade-up" data-category="windows">
+          <div class="card-top">
+            <div class="card-icon">📚</div>
+            <div class="card-info">
+              <span class="platform-badge pb-windows">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
+                Windows
+              </span>
+              <div class="card-name">LapBook</div>
+            </div>
+            <span class="ver-badge">v1.1.0</span>
+          </div>
+          <p class="card-desc">Beautiful offline desktop eBook reader built with Electron. Supports EPUB and PDF with a clean, distraction-free reading experience, full typography customization, text highlights, bookmarks, column layouts, and a personal library manager.</p>
+          <div class="card-tags">
+            <span class="tag">📖 EPUB &amp; PDF</span>
+            <span class="tag">🏛️ Library manager</span>
+            <span class="tag">✏️ Highlights</span>
+            <span class="tag">📐 Column layout</span>
+            <span class="tag">🌙 Reading themes</span>
+            <span class="tag">👆 Touch gestures</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-windows" href="https://github.com/MorningAppLabs/LapBook/releases/download/v1.1.0/LapBook%20Setup%201.1.0.exe" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download .exe
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/LapBook" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── FormFocus ──────────────────────────────────────────────── -->
+        <article class="card card-web fade-up" data-category="web">
+          <div class="card-top">
+            <div class="card-icon">📸</div>
+            <div class="card-info">
+              <span class="platform-badge pb-web">
+                <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20"/></svg>
+                Web Tool
+              </span>
+              <div class="card-name">FormFocus</div>
+            </div>
+            <span class="ver-badge ver-live">Live</span>
+          </div>
+          <p class="card-desc">Professional image &amp; document toolkit for government forms and exam applications. Resize photos to exact pixels or KB, merge photo+signature, stitch ID card front &amp; back, remove AI backgrounds, convert formats — 100% in-browser, zero server uploads.</p>
+          <div class="card-tags">
+            <span class="tag">🎯 Exact resize</span>
+            <span class="tag">📦 Compress to KB</span>
+            <span class="tag">🤖 AI bg removal</span>
+            <span class="tag">🪪 ID card stitcher</span>
+            <span class="tag">📄 PDF resizer</span>
+            <span class="tag">🔒 No upload</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-main cta-web" href="https://formfocus.pages.dev/" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open Web App
+            </a>
+            <a class="cta-ghost" href="https://github.com/MorningAppLabs/FormFocus" target="_blank" rel="noopener noreferrer" title="Source code">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Maintenance Whitelist ──────────────────────────────────── -->
+        <article class="card card-wp fade-up" data-category="wp">
+          <div class="card-top">
+            <div class="card-icon">🔧</div>
+            <div class="card-info">
+              <span class="platform-badge pb-wp">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
+                WordPress
+              </span>
+              <div class="card-name">Maintenance Whitelist</div>
+            </div>
+            <span class="ver-badge">Plugin</span>
+          </div>
+          <p class="card-desc">Professional WordPress maintenance mode plugin with powerful whitelist rules, scheduling engine, animated custom layouts, and SEO-friendly behavior. Keep your site locked to the public while you work — whitelisted IPs see the real site.</p>
+          <div class="card-tags">
+            <span class="tag">🛡️ IP whitelist</span>
+            <span class="tag">📅 Scheduling</span>
+            <span class="tag">🎨 Custom layouts</span>
+            <span class="tag">🔍 SEO-friendly</span>
+            <span class="tag">✨ Animations</span>
+          </div>
+          <div class="card-actions">
+            <a class="cta-soon" href="https://github.com/MorningAppLabs/maintenance-whitelist" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              Release coming soon — View on GitHub
+            </a>
+          </div>
+        </article>
+
+      </div><!-- /grid -->
+    </div><!-- /section -->
+  </div><!-- /projects bg -->
+
+  <!-- ╔══ ABOUT ═════════════════════════════════════════════════════════════╗ -->
+  <div id="about">
+    <div class="section">
+      <div class="divider"></div>
+      <h2 class="section-h">About MorningAppLabs</h2>
+      <p class="section-p">One developer, building focused tools that actually solve problems — not platforms, not ecosystems, just useful software.</p>
+
+      <div class="about-grid">
+        <div class="acard">
+          <div class="acard-icon">🌅</div>
+          <div class="acard-title">The philosophy</div>
+          <p class="acard-body">
+            MorningAppLabs builds software with a simple rule: every app must earn its place on your device. That means fast performance, zero unnecessary permissions, all data stored locally — and a genuinely useful core feature that makes everyday life a little easier.
+            <br><br>
+            No dark patterns. No subscriptions for features that should be free. No cloud dependency. Every release goes through real-world use before it ships.
+          </p>
+          <div class="socials">
+            <a href="https://github.com/MorningAppLabs" target="_blank" rel="noopener noreferrer" class="soc">
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub
+            </a>
+            <a href="https://x.com/MorningAppLabs" target="_blank" rel="noopener noreferrer" class="soc">
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              X / Twitter
+            </a>
+            <a href="https://instagram.com/morningapplabs" target="_blank" rel="noopener noreferrer" class="soc">
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Instagram
+            </a>
+            <a href="mailto:morningapplabs@gmail.com" class="soc">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+              Email
+            </a>
+          </div>
+        </div>
+
+        <div class="acard dark">
+          <div class="acard-icon">⚙️</div>
+          <div class="acard-title acard-dark-title">Services &amp; Extras</div>
+          <p class="acard-body acard-dark-body">Available through Buy Me a Coffee — one-off support sessions for real problems.</p>
+          <div class="services">
+            <div class="svc">React Native app debugging &amp; fixes</div>
+            <div class="svc">WordPress plugin troubleshooting</div>
+            <div class="svc">Feature additions to existing projects</div>
+            <div class="svc">Custom utility app development</div>
+            <div class="svc">Client-side web tool builds</div>
+            <div class="svc">Small automation scripts &amp; tools</div>
+          </div>
+          <div style="margin-top:28px">
+            <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener noreferrer" class="bmac-link">
+              ☕ Request via Buy Me a Coffee
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══ SUPPORT BANNER ════════════════════════════════════════════════════╗ -->
+  <div style="background:#F5F5F4">
+    <div class="section-sm">
+      <div class="banner">
+        <div class="banner-glow"></div>
+        <div class="banner-content">
+          <div style="font-size:52px;margin-bottom:16px">☕</div>
+          <h2 class="banner-title">Support the work</h2>
+          <p class="banner-sub">These apps are free, privacy-first, and built in spare hours. If one of them has saved you time or solved a real problem, a coffee goes a long way toward building more.</p>
+          <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener noreferrer" class="coffee-btn">
+            Buy me a coffee
           </a>
         </div>
-      </aside>
-    </main>
-
-    <!-- PROJECTS SECTION -->
-    <section id="projects" style="margin-top:28px">
-      <h2 style="margin:0 0 12px">My Projects</h2>
-
-      <div class="projects">
-
-        <!-- Nourish -->
-        <article class="card">
-          <h3>Nourish — Meal Planning & Kitchen Manager</h3>
-          <p>
-            A complete meal planning companion with recipe management, grocery list automation, budget tracking, medication reminders, swipe navigation, and local data storage with backup/restore.
-          </p>
-        </article>
-
-        <!-- DueSense -->
-        <article class="card">
-          <h3>DueSense — Credit Card Management</h3>
-          <p>
-            A personal finance tool for managing credit cards, tracking all transactions, cashback calculations, reminders, EMIs, spending analytics, currency support, and secure local storage.
-          </p>
-        </article>
-
-        <!-- INS Battery Service Manager -->
-        <article class="card">
-          <h3>INS Battery Service Manager — WordPress Plugin</h3>
-          <p>
-            A complete workflow system for battery repair businesses with customer portals, technician dashboards, automation, PDF reports, WhatsApp updates, analytics, backups, and more.
-          </p>
-        </article>
-
-        <!-- Maintenance Whitelist -->
-        <article class="card">
-          <h3>Maintenance Whitelist — WordPress Plugin</h3>
-          <p>
-            A powerful maintenance-mode plugin supporting whitelist rules, scheduling, custom layouts, animations, SEO-friendly behavior, and beautiful responsive design.
-          </p>
-        </article>
-
       </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
-
-      <div class="card">
-        <h3>About MorningAppLabs</h3>
-        <p>
-          MorningAppLabs builds simple, focused tools and apps that address everyday pain points.  
-          I prioritize speed, clarity, privacy, and long-term maintainability.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Services & Extras</h3>
-        <p>Available through Buy Me a Coffee</p>
-        <ul style="margin:0;padding-left:18px;color:var(--muted)">
-          <li>React Native app debugging</li>
-          <li>WordPress plugin fixes</li>
-          <li>Feature enhancements</li>
-          <li>Custom utility app development</li>
-          <li>Small automation tools</li>
-        </ul>
-      </div>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <div style="margin-bottom:8px">Developed with ❤️ — MorningAppLabs</div>
-      <div style="font-size:13px">
-        Links:
-        <a href="https://github.com/MorningAppLabs">GitHub</a> ·
-        <a href="https://x.com/MorningAppLabs">X</a> ·
-        <a href="https://instagram.com/morningapplabs">Instagram</a> ·
-        <a href="https://www.buymeacoffee.com/morningapplabs">Support</a>
-      </div>
-    </footer>
-
+    </div>
   </div>
+
+  <!-- ╔══ FOOTER ════════════════════════════════════════════════════════════╗ -->
+  <footer>
+    <div class="foot-inner">
+      <div>
+        <div class="foot-logo">
+          <div class="foot-mark"><img src="mal-mark.png" alt="MorningAppLabs" loading="lazy" /></div>
+          <span class="foot-name">MorningAppLabs</span>
+        </div>
+        <div class="foot-tag">Building apps that solve real problems — one release at a time.</div>
+      </div>
+      <div class="foot-links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/MorningAppLabs" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/MorningAppLabs" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://instagram.com/morningapplabs" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.buymeacoffee.com/morningapplabs" target="_blank" rel="noopener noreferrer">Support</a>
+        <a href="mailto:morningapplabs@gmail.com">Contact</a>
+      </div>
+      <div class="foot-copy">&copy; 2026 MorningAppLabs</div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Hamburger ──────────────────────────────────────── */
+    const ham = document.getElementById('hamburger');
+    const nl  = document.getElementById('navLinks');
+    ham.addEventListener('click', () => nl.classList.toggle('open'));
+    document.addEventListener('click', e => {
+      if (!ham.contains(e.target) && !nl.contains(e.target)) nl.classList.remove('open');
+    });
+
+    /* ── Filter tabs ────────────────────────────────────── */
+    document.querySelectorAll('.f-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.card[data-category]').forEach(c => {
+          const show = f === 'all' || c.dataset.category === f;
+          c.style.transition = 'opacity .25s, transform .25s';
+          if (show) { c.style.display = ''; requestAnimationFrame(() => { requestAnimationFrame(() => { c.style.opacity = '1'; c.style.transform = ''; }); }); }
+          else       { c.style.opacity = '0'; setTimeout(() => { c.style.display = 'none'; }, 250); }
+        });
+      });
+    });
+
+    /* ── Scroll-reveal ──────────────────────────────────── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    /* ── Hide/show nav on scroll ────────────────────────── */
+    let prev = 0;
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      const cur = window.scrollY;
+      nav.style.transform = (cur > prev && cur > 80) ? 'translateY(-100%)' : 'translateY(0)';
+      prev = cur;
+    }, { passive: true });
+  </script>
+
 </body>
 </html>
